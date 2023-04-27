@@ -48,6 +48,10 @@ use crate::runtime::{
         RTE_ETH_LINK_FULL_DUPLEX,
         RTE_ETH_LINK_UP,
         RTE_PKTMBUF_HEADROOM,
+        RTE_ETH_RSS_NONFRAG_IPV4_TCP,
+        RTE_ETH_RSS_NONFRAG_IPV4_UDP,
+        RTE_ETH_RSS_NONFRAG_IPV6_TCP,
+        RTE_ETH_RSS_NONFRAG_IPV6_UDP,
     },
     network::{
         config::{
@@ -265,7 +269,13 @@ impl DPDKRuntime {
             port_conf.rxmode.offloads |= unsafe { rte_eth_rx_offload_udp_cksum() as u64 };
         }
         port_conf.rxmode.mq_mode = RTE_ETH_MQ_RX_RSS;
-        port_conf.rx_adv_conf.rss_conf.rss_hf = unsafe { rte_eth_rss_ip() as u64 } | dev_info.flow_type_rss_offloads;
+
+        port_conf.rx_adv_conf.rss_conf.rss_hf = RTE_ETH_RSS_NONFRAG_IPV4_TCP |
+                                                RTE_ETH_RSS_NONFRAG_IPV4_UDP |
+                                                RTE_ETH_RSS_NONFRAG_IPV6_TCP |
+                                                RTE_ETH_RSS_NONFRAG_IPV6_UDP;
+
+        //port_conf.rx_adv_conf.rss_conf.rss_hf = unsafe { rte_eth_rss_ip() as u64 } | dev_info.flow_type_rss_offloads;
 
         port_conf.txmode.mq_mode = RTE_ETH_MQ_TX_NONE;
         if tcp_checksum_offload {

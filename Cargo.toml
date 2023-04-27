@@ -43,7 +43,9 @@ x86 = "0.52.0"
 
 # Demikernel Organization
 liburing = { git = "https://github.com/demikernel/liburing-rs", rev = "780827ee3f805d94f9909bd47cd925ee8476a64b", optional = true}
-dpdk-rs = { git = "https://github.com/demikernel/dpdk-rs", rev = "5a339766b6f64c2b09c2e4089c62013bfb48297e", optional = true }
+#dpdk-rs = { git = "https://github.com/demikernel/dpdk-rs", rev = "cc8b0919f64406e9ee84db7d06ba57d14331f002", optional = true }
+dpdk-rs = { git = "https://github.com/SamGinzburg/dpdk-rs", rev = "4e5ac80d49a34a9d077341d6ceab6e9e986503fd", optional = true }
+#dpdk-rs = { path = "/home/ginzburgsam/dpdk-rs", rev = "4e5ac80d49a34a9d077341d6ceab6e9e986503fd", optional = true }
 
 # Windows-specific dependencies.
 [target.'cfg(windows)'.dependencies]
